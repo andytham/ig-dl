@@ -14,21 +14,25 @@ inputLabel.pack()
 inputField = tk.Entry(win)
 inputField.pack()
 
-def chooseDir():
-    # win.withdraw()
-    selectedDir = tk.filedialog.askdirectory()
-    print(selectedDir)
-dirButton = tk.Button(win, text="Choose location to save:", command=chooseDir)
-dirButton.pack()
-
 # func that does grabbing
 def grabInput(event):
     url = inputField.get()
     inputField.delete(0, tk.END )
     print(url)
 
+# choose directory to save
+dirEntry = tk.Entry(win)
+def chooseDir():
+    # win.withdraw() # this hides the window
+    selectedDir = tk.filedialog.askdirectory()
+    dirEntry.delete(0, tk.END)
+    dirEntry.insert(0, selectedDir)
+dirButton = tk.Button(win, text="Choose location to save:", command=chooseDir)
+dirButton.pack()
+dirEntry.pack()
 
 
+dirEntry.bind('<Button-1>', chooseDir) # click on entry field
 inputField.bind('<Return>', grabInput)
 
 
