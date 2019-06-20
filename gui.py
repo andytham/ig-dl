@@ -2,6 +2,7 @@
 # create a gui
 import tkinter as tk
 import tkinter.filedialog
+import argparse
 
 # window
 win = tk.Tk()
@@ -22,7 +23,7 @@ def grabInput(event):
 
 # choose directory to save
 dirEntry = tk.Entry(win)
-def chooseDir():
+def chooseDir(nargs='?'):
     # win.withdraw() # this hides the window
     selectedDir = tk.filedialog.askdirectory()
     dirEntry.delete(0, tk.END)
