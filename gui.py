@@ -1,8 +1,7 @@
-
 # create a gui
 import tkinter as tk
 import tkinter.filedialog
-
+import instagram as ig
 # window
 win = tk.Tk()
 win.title("ig grab")
@@ -31,10 +30,23 @@ dirButton = tk.Button(win, text="Choose location to save:", command=chooseDir)
 dirButton.pack()
 dirEntry.pack()
 
-
 dirEntry.bind('<Button-1>', chooseDir) # click on entry field
 inputField.bind('<Return>', grabInput)
 
+
+# add a preview
+
+# add a save button
+
+# see if grab url works
+def testFunc():
+    print("test func running")
+    url = inputField.get()
+    imgUrl = ig.grabUrl(url)
+    print(imgUrl)
+
+getUrlButton = tk.Button(master=win, text="Save", command=testFunc)
+getUrlButton.pack()
 
 # event loop
 win.mainloop()
