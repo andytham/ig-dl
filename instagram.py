@@ -9,4 +9,4 @@ def grabUrl(url):
     unparsedText = r.text
     soup = BeautifulSoup(unparsedText, "html.parser")
     imgUrl = soup.find('meta',{'property' : 'og:image'}).attrs['content']
-    return imgUrl
+    return requests.get(imgUrl)

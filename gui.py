@@ -2,6 +2,9 @@
 import tkinter as tk
 import tkinter.filedialog
 import instagram as ig
+from PIL import Image
+from io import BytesIO
+
 # window
 win = tk.Tk()
 win.title("ig grab")
@@ -37,15 +40,15 @@ inputField.bind('<Return>', grabInput)
 # add a preview
 
 # add a save button
-
+import requests
 # see if grab url works
-def testFunc():
-    print("test func running")
+def grabUrl():
     url = inputField.get()
-    imgUrl = ig.grabUrl(url)
-    print(imgUrl)
+    imgRes = ig.grabUrl(url) # ig func
+    img = Image.open(BytesIO(imgRes.content))
+    img.show()
 
-getUrlButton = tk.Button(master=win, text="Save", command=testFunc)
+getUrlButton = tk.Button(master=win, text="Save", command=grabUrl)
 getUrlButton.pack()
 
 # event loop
