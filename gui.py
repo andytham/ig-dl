@@ -51,23 +51,32 @@ win.bind("<Escape>", quit)
 #TODO add a preview
 
 # Grab and saves image
-def grabUrl():
+def saveUrl():
     url = inputField.get()
-    imgArr = ig.scrapeUrl(url) # ig func
-    # turn url into image data
-    if len(imgArr[0]) == 1: 
-        getDir = dirEntry.get()
-        ext = imgArr[1]
-        open(f"{getDir}/{imgArr[2]}.{ext}", 'wb').write(imgArr[0][0].content)
-    else: # add numbering if there is an album
-        for index, imageInArray in enumerate(imgArr[0]):
-            getDir = dirEntry.get()
-            ext = imgArr[1]
+    res = ig.scrapeUrl(url) # ig func
+    '''
+    structure of res
+    {
+        "filename": filename,
+        "fileList": [
+            [requests.get(url), ext],
+            ...
+        ]
+    }
+    '''
 
-            open(f"{getDir}/{imgArr[2]} {index}.{ext}", 'wb').write(imageInArray.content)
-            index += 1
+    for index, file in enumerate(res["fileList"]):
+        directory = dirEntry.get()
+        filename = res["filename"]
+        fileData = file[0].content
+        ext = file[1]
+        if len(res["fileList"][0]) == 1: # if there's only one item
+            open(f"{directory}/{filename}.{ext}", 'wb').write(fileData)
+        else:
+            open(f"{directory}/{filename} {index}.{ext}", 'wb').write(fileData)
+        index += 1
 
-getUrlButton = tk.Button(master=win, text="Save", command=grabUrl)
+getUrlButton = tk.Button(master=win, text="Save", command=saveUrl)
 getUrlButton.pack()
 
 # event loop

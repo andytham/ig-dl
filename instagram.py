@@ -26,11 +26,11 @@ def scrapeUrl(url):
     shorthandJson = jsonDump['entry_data']['PostPage'][0]['graphql']['shortcode_media']
     def parseJsonIntoUrl(url):
         if url['is_video']:
-            ext = url.split('?')[0].split('.')[-1]
+            ext = url['video_url'].split('?')[0].split('.')[-1]
             mediaReqData = requests.get(url['video_url'])
             fileList.append([mediaReqData, ext])
         else:
-            ext = url.split('?')[0].split('.')[-1]
+            ext = url['display_url'].split('?')[0].split('.')[-1]
             mediaReqData = requests.get(url['display_url'])
             fileList.append([mediaReqData, ext])
 
