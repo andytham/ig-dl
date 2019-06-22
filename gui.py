@@ -45,6 +45,11 @@ dirMeatballs.pack()
 
 inputField.bind("<Return>", grabInput)
 
+# close on Esc key
+def quit(e):
+    print(e)
+    win.destroy()
+win.bind("<Escape>", quit)
 # add a preview
 
 # add a save button
