@@ -53,7 +53,7 @@ win.bind("<Escape>", quit)
 # Grab and saves image
 def grabUrl():
     url = inputField.get()
-    imgArr = ig.grabUrl(url) # ig func
+    imgArr = ig.scrapeUrl(url) # ig func
     # turn url into image data
     if len(imgArr[0]) == 1: 
         getDir = dirEntry.get()
