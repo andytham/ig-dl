@@ -49,10 +49,10 @@ def grabUrl():
     getDir = dirEntry.get()
     ext = imgArr[1]
     if ext == 'jpg':
-        ext = 'JPEG'
+        pilExt = 'JPEG'
     elif ext == 'png':
-        ext = 'PNG'
-    img.save(getDir + "/testname.test", ext)
+        pilExt = 'PNG'
+    img.save(getDir + "/" + imgArr[2] + "." + ext, pilExt)
 
 getUrlButton = tk.Button(master=win, text="Save", command=grabUrl)
 getUrlButton.pack()
