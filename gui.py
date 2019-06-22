@@ -58,7 +58,7 @@ def grabUrl():
     if len(imgArr[0]) == 1: 
         getDir = dirEntry.get()
         ext = imgArr[1]
-        open(f"{getDir}/{imgArr[2]}.{ext}", 'wb').write(imgArr[0].content)
+        open(f"{getDir}/{imgArr[2]}.{ext}", 'wb').write(imgArr[0][0].content)
     else: # add numbering if there is an album
         for index, imageInArray in enumerate(imgArr[0]):
             getDir = dirEntry.get()

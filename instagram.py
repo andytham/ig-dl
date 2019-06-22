@@ -44,9 +44,9 @@ def grabUrl(url):
             ext = "mp4"
     #TODO check if mp4
 
-    print (imgUrl)
+    print (imgList)
     print(combinedName)
     return [imgList, ext, combinedName]
 
-import env
-grabUrl(env.video)
+# import env
+# grabUrl(env.video)
