@@ -7,7 +7,7 @@ def grabUrl(url):
     unparsedText = r.text
     soup = BeautifulSoup(unparsedText, "html.parser")
     # print(soup)
-    imgUrl = soup.find('meta',{'property' : 'og:image'}).attrs['content']
+    imgUrl = soup.find('meta',{'property' : 'og:image'}).attrs['content'] # old way to grab img url
     # get the extension
     ext = imgUrl.split('?')[0].split('.')[-1]
     # get author
@@ -37,7 +37,7 @@ def grabUrl(url):
     with open("test/test.html", "w", encoding='utf-8') as file:
         file.write(str(soup))
 
-    print (imgUrl)
+    # print (imgUrl)
     print(combinedName)
     return [imgList, ext, combinedName]
 

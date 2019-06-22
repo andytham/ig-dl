@@ -58,10 +58,20 @@ def grabUrl():
     url = inputField.get()
     imgArr = ig.grabUrl(url) # ig func
     # turn url into image data
-    img = Image.open(BytesIO(imgArr[0].content))
-    getDir = dirEntry.get()
-    ext = imgArr[1]
-    img.save(getDir + "/" + imgArr[2] + "." + ext)
+    if len(imgArr[0]) == 1:
+        img = Image.open(BytesIO(imgArr[0].content))
+        getDir = dirEntry.get()
+        ext = imgArr[1]
+        img.save(f"{getDir}/{imgArr[2]}.{ext}")
+        index += 1
+    else:
+        for index, imageInArray in enumerate(imgArr[0]):
+            img = Image.open(BytesIO(imageInArray.content))
+            getDir = dirEntry.get()
+            ext = imgArr[1]
+            img.save(f"{getDir}/{imgArr[2]} {index}.{ext}")
+            index += 1
+
 
 getUrlButton = tk.Button(master=win, text="Save", command=grabUrl)
 getUrlButton.pack()
