@@ -19,6 +19,11 @@ def grabUrl(url):
     imgHash = fullUrl.split("/")[5]
 
     combinedName = author + " - " + imgHash
+    #TODO if album
+
+    # window._sharedData.entry_data.PostPage[0].graphql.shortcode_media.edge_sidecar_to_children.edges
+    # loops through edges to each node
+    # Use graphql? or just json?
 
     #TODO check if mp4
     
@@ -31,4 +36,4 @@ def grabUrl(url):
     print(combinedName)
     return [requests.get(imgUrl), ext, combinedName]
 
-grabUrl("https://www.instagram.com/p/BwhVD2OBDvL/")
+grabUrl("https://www.instagram.com/p/BlTZebNnOLq/")
