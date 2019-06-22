@@ -19,8 +19,14 @@ def grabUrl(url):
     imgHash = fullUrl.split("/")[5]
 
     combinedName = author + " - " + imgHash
+
+    #TODO check if mp4
+    # soup to text for debugging purposes
+    with open("test/output1.html", "w") as file:
+        file.write(str(soup))
+
     print (imgUrl)
     print(combinedName)
     return [requests.get(imgUrl), ext, combinedName]
 
-# grabUrl("https://www.instagram.com/p/BwhVD2OBDvL/")
+grabUrl("https://www.instagram.com/p/BwhVD2OBDvL/")
