@@ -50,11 +50,10 @@ def quit(e):
     print(e)
     win.destroy()
 win.bind("<Escape>", quit)
-# add a preview
 
-# add a save button
-import requests
-# see if grab url works
+#TODO add a preview
+
+# Grab and saves image
 def grabUrl():
     url = inputField.get()
     imgArr = ig.grabUrl(url) # ig func
@@ -62,11 +61,7 @@ def grabUrl():
     img = Image.open(BytesIO(imgArr[0].content))
     getDir = dirEntry.get()
     ext = imgArr[1]
-    if ext == 'jpg':
-        pilExt = 'JPEG'
-    elif ext == 'png':
-        pilExt = 'PNG'
-    img.save(getDir + "/" + imgArr[2] + "." + ext, pilExt)
+    img.save(getDir + "/" + imgArr[2] + "." + ext)
 
 getUrlButton = tk.Button(master=win, text="Save", command=grabUrl)
 getUrlButton.pack()
