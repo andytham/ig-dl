@@ -31,17 +31,22 @@ def grabUrl(url):
     jsonDump = json.loads(graphqlJson)
     imgList = []
     # if album, else dump in single url
-    if 'edge_sidecar_to_children' in jsonDump['entry_data']['PostPage'][0]['graphql']['shortcode_media']:
-        edges = jsonDump['entry_data']['PostPage'][0]['graphql']['shortcode_media']['edge_sidecar_to_children']['edges']
+    shortJson = jsonDump['entry_data']['PostPage'][0]['graphql']['shortcode_media']
+    if 'edge_sidecar_to_children' in shortJson:
+        edges = shortJson['edge_sidecar_to_children']['edges']
         for node in edges:
             imgList.append(requests.get(node['node']['display_url']))
     else:
-        imgList.append(jsonDump['entry_data']['PostPage'][0]['graphql']['shortcode_media']['display_url'])
+        if shortJson['is_video'] is False:
+            imgList.append(requests.get(shortJson['display_url']))
+        else:
+            imgList.append(requests.get(shortJson['video_url']))
+            ext = "mp4"
     #TODO check if mp4
 
-    # print (imgUrl)
+    print (imgUrl)
     print(combinedName)
     return [imgList, ext, combinedName]
 
 import env
-grabUrl(env.single)
+grabUrl(env.video)
