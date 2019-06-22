@@ -8,15 +8,19 @@ def grabUrl(url):
     r = requests.get(url)
     unparsedText = r.text
     soup = BeautifulSoup(unparsedText, "html.parser")
+    # print(soup)
     imgUrl = soup.find('meta',{'property' : 'og:image'}).attrs['content']
     # get the extension
     ext = imgUrl.split('?')[0].split('.')[-1]
-    # get title of the post
-    postTitle = soup.find('title').get_text()
-    postTitle = postTitle.split(' on Instagram: ')[0] + ' - ' + postTitle.split(' on Instagram: ')[1]
-    postTitle = postTitle.rstrip().lstrip()
-    # print(repr(postTitle))
+    # get author
+    fullUrl = soup.find('link', {'rel' : 'canonical'}).attrs['href']
+    author = fullUrl.split("/")[3]
+    # get hash
+    imgHash = fullUrl.split("/")[5]
+
+    combinedName = author + " - " + imgHash
     print (imgUrl)
-    return [requests.get(imgUrl), ext, postTitle]
+    print(combinedName)
+    return [requests.get(imgUrl), ext, combinedName]
 
 # grabUrl("https://www.instagram.com/p/BwhVD2OBDvL/")
