@@ -21,8 +21,10 @@ def grabUrl(url):
     combinedName = author + " - " + imgHash
 
     #TODO check if mp4
+    
+
     # soup to text for debugging purposes
-    with open("test/output1.html", "w") as file:
+    with open("test/test.html", "w", encoding='utf-8') as file:
         file.write(str(soup))
 
     print (imgUrl)
