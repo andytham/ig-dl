@@ -1,8 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-
-# test url of johnny daigo
-# url = "https://www.instagram.com/p/BwhVD2OBDvL/"
+import json, re
 
 def grabUrl(url):
     r = requests.get(url)
@@ -24,6 +22,13 @@ def grabUrl(url):
     # window._sharedData.entry_data.PostPage[0].graphql.shortcode_media.edge_sidecar_to_children.edges
     # loops through edges to each node
     # Use graphql? or just json?
+    graphqlJson = soup.findAll(text=re.compile("window._sharedData"))[0][21:-1].encode(encoding='UTF-8',errors='strict')
+    # print(graphqlJson)
+    jsonDump = json.loads(graphqlJson)
+    edges = jsonDump['entry_data']['PostPage'][0]['graphql']['shortcode_media']['edge_sidecar_to_children']['edges']
+    imgList = []
+    for node in edges:
+        imgList.append(requests.get(node['node']['display_url']))
 
     #TODO check if mp4
     
@@ -34,6 +39,7 @@ def grabUrl(url):
 
     print (imgUrl)
     print(combinedName)
-    return [requests.get(imgUrl), ext, combinedName]
+    return [imgList, ext, combinedName]
 
-grabUrl("https://www.instagram.com/p/BlTZebNnOLq/")
+import env
+grabUrl(env.san)
