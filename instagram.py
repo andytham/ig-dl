@@ -17,6 +17,10 @@ def grabUrl(url):
     imgHash = fullUrl.split("/")[5]
 
     combinedName = author + " - " + imgHash
+        
+    # soup to text for debugging purposes
+    with open("test/test.html", "w", encoding='utf-8') as file:
+        file.write(str(soup))
     #TODO if album
 
     # window._sharedData.entry_data.PostPage[0].graphql.shortcode_media.edge_sidecar_to_children.edges
@@ -25,21 +29,19 @@ def grabUrl(url):
     graphqlJson = soup.findAll(text=re.compile("window._sharedData"))[0][21:-1].encode(encoding='UTF-8',errors='strict')
     # print(graphqlJson)
     jsonDump = json.loads(graphqlJson)
-    edges = jsonDump['entry_data']['PostPage'][0]['graphql']['shortcode_media']['edge_sidecar_to_children']['edges']
     imgList = []
-    for node in edges:
-        imgList.append(requests.get(node['node']['display_url']))
-
+    # if album, else dump in single url
+    if 'edge_sidecar_to_children' in jsonDump['entry_data']['PostPage'][0]['graphql']['shortcode_media']:
+        edges = jsonDump['entry_data']['PostPage'][0]['graphql']['shortcode_media']['edge_sidecar_to_children']['edges']
+        for node in edges:
+            imgList.append(requests.get(node['node']['display_url']))
+    else:
+        imgList.append(jsonDump['entry_data']['PostPage'][0]['graphql']['shortcode_media']['display_url'])
     #TODO check if mp4
-    
-
-    # soup to text for debugging purposes
-    with open("test/test.html", "w", encoding='utf-8') as file:
-        file.write(str(soup))
 
     # print (imgUrl)
     print(combinedName)
     return [imgList, ext, combinedName]
 
 import env
-grabUrl(env.san)
+grabUrl(env.single)

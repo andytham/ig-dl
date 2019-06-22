@@ -58,13 +58,13 @@ def grabUrl():
     url = inputField.get()
     imgArr = ig.grabUrl(url) # ig func
     # turn url into image data
-    if len(imgArr[0]) == 1:
+    if len(imgArr[0]) == 1: 
         img = Image.open(BytesIO(imgArr[0].content))
         getDir = dirEntry.get()
         ext = imgArr[1]
         img.save(f"{getDir}/{imgArr[2]}.{ext}")
         index += 1
-    else:
+    else: # add numbering if there is an album
         for index, imageInArray in enumerate(imgArr[0]):
             img = Image.open(BytesIO(imageInArray.content))
             getDir = dirEntry.get()
