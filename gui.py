@@ -36,11 +36,13 @@ def chooseDir(event="event"):
     selectedDir = tk.filedialog.askdirectory()
     dirEntry.delete(0, tk.END)
     dirEntry.insert(0, selectedDir)
-dirButton = tk.Button(dirFrame, text="Choose location to save:", command=chooseDir)
-dirButton.pack()
-dirEntry.pack()
+dirLabel = tk.Label(dirFrame, text="Choose a location to save:")
 
-dirEntry.bind("<Button-1>", chooseDir) # click on entry field
+dirMeatballs = tk.Button(dirFrame, text="...", command=chooseDir)
+dirLabel.pack()
+dirEntry.pack(side=tk.LEFT)
+dirMeatballs.pack()
+
 inputField.bind("<Return>", grabInput)
 
 # add a preview
