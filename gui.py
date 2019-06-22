@@ -8,13 +8,20 @@ from io import BytesIO
 # window
 win = tk.Tk()
 win.title("ig grab")
+# win.configure(background='default')
 
+# Frames
+urlFrame = tk.Frame(win, pady="4", padx="4")
+urlFrame.pack()
+
+dirFrame = tk.Frame(win, pady="4", padx="4")
+dirFrame.pack()
 # input to grab URL
-inputLabel = tk.Label(win, text="Enter IG URL:")
-inputLabel.pack()
+inputLabel = tk.Label(urlFrame, text="Enter IG URL:", anchor="w")
+inputLabel.pack(fill="both")
 
-inputField = tk.Entry(win)
-inputField.pack()
+inputField = tk.Entry(urlFrame)
+inputField.pack(anchor="w")
 
 # func that does grabbing
 def grabInput(event):
@@ -23,18 +30,18 @@ def grabInput(event):
     print(url)
 
 # choose directory to save
-dirEntry = tk.Entry(win)
+dirEntry = tk.Entry(dirFrame)
 def chooseDir(event="event"):
     # win.withdraw() # this hides the window
     selectedDir = tk.filedialog.askdirectory()
     dirEntry.delete(0, tk.END)
     dirEntry.insert(0, selectedDir)
-dirButton = tk.Button(win, text="Choose location to save:", command=chooseDir)
+dirButton = tk.Button(dirFrame, text="Choose location to save:", command=chooseDir)
 dirButton.pack()
 dirEntry.pack()
 
-dirEntry.bind('<Button-1>', chooseDir) # click on entry field
-inputField.bind('<Return>', grabInput)
+dirEntry.bind("<Button-1>", chooseDir) # click on entry field
+inputField.bind("<Return>", grabInput)
 
 # add a preview
 

@@ -15,7 +15,7 @@ def grabUrl(url):
     postTitle = soup.find('title').get_text()
     postTitle = postTitle.split(' on Instagram: ')[0] + ' - ' + postTitle.split(' on Instagram: ')[1]
     postTitle = postTitle.rstrip().lstrip()
-    print(repr(postTitle))
+    # print(repr(postTitle))
     print (imgUrl)
     return [requests.get(imgUrl), ext, postTitle]
 
