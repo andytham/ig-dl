@@ -36,7 +36,6 @@ dirEntry.pack()
 dirEntry.bind('<Button-1>', chooseDir) # click on entry field
 inputField.bind('<Return>', grabInput)
 
-
 # add a preview
 
 # add a save button
@@ -44,9 +43,16 @@ import requests
 # see if grab url works
 def grabUrl():
     url = inputField.get()
-    imgRes = ig.grabUrl(url) # ig func
-    img = Image.open(BytesIO(imgRes.content))
-    img.show()
+    imgArr = ig.grabUrl(url) # ig func
+    # turn url into image data
+    img = Image.open(BytesIO(imgArr[0].content))
+    getDir = dirEntry.get()
+    ext = imgArr[1]
+    if ext == 'jpg':
+        ext = 'JPEG'
+    elif ext == 'png':
+        ext = 'PNG'
+    img.save(getDir + "/testname.test", ext)
 
 getUrlButton = tk.Button(master=win, text="Save", command=grabUrl)
 getUrlButton.pack()

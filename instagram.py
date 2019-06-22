@@ -9,4 +9,7 @@ def grabUrl(url):
     unparsedText = r.text
     soup = BeautifulSoup(unparsedText, "html.parser")
     imgUrl = soup.find('meta',{'property' : 'og:image'}).attrs['content']
-    return requests.get(imgUrl)
+    # get the extension
+    ext = imgUrl.split('?')[0].split('.')[-1]
+    print (imgUrl)
+    return [requests.get(imgUrl), ext]
