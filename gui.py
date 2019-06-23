@@ -70,7 +70,7 @@ def saveUrl():
         filename = res["filename"]
         fileData = file[0].content
         ext = file[1]
-        if len(res["fileList"][0]) == 1: # if there's only one item
+        if len(res["fileList"]) == 1: # if there's only one item
             open(f"{directory}/{filename}.{ext}", 'wb').write(fileData)
         else:
             open(f"{directory}/{filename} {index}.{ext}", 'wb').write(fileData)
